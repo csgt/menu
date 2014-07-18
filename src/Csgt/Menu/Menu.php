@@ -1,8 +1,5 @@
 <?php 
-/*************************************************************
-Laravel CS Core - No modificar 
-ver 1.1 - Se agrego el icono si esta configurado en la DB
-**************************************************************/
+
 namespace Csgt\Menu;
 use Config;
 use View;
@@ -73,24 +70,23 @@ class Menu {
 		$padreAnt = 'Primero';
 		$k=0;
 		
-		if (!is_array($aMenuItems)) return 'Error: Los elementos del menu deben venir en un array.';
-		
-		foreach($aMenuItems as $m) {
-			$m = (object)$m;
-			$padreID = (int)$m->padreid; //->padreid;
-			if ($padreID<>$padreAnt) $k=0;
-			foreach (Config::get('menu::campos') as $key=>$val) {
-				$this->matriz[$padreID][$k][$key] = $m->$val;
+		try{
+			foreach($aMenuItems as $m) {
+				$m = (object)$m;
+				$padreID = (int)$m->padreid;
+				if ($padreID<>$padreAnt) $k=0;
+				foreach (Config::get('menu::campos') as $key=>$val) {
+					$this->matriz[$padreID][$k][$key] = $m->$val;
+				}
+
+				$k++;
+				$padreAnt = $padreID;
 			}
 
-			$k++;
-			$padreAnt = $padreID;
+			$this->generarNivel(0,1);
+			return View::make('menu::menutemplate')->with('elMenu', $this->texto)->render();
+		} catch(\Exception $e){
+			return '<div class="alert alert-danger"><strong>Error:</strong> Se ha producido un error con el siguiente mensaje:</div><ul><li>'.$e->getMessage().'</li></ul>';
 		}
-
-		$this->generarNivel(0,1);
-		return View::make('menu::menutemplate')->with('elMenu', $this->texto);
-		
-		//return($this->texto);
 	}
-
 }

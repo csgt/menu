@@ -51,13 +51,39 @@ return array(
 	*/
 
 	'viewhelp'         => true,
+	
+	/*
+	|--------------------------------------------------------------------------
+	| Ver Acerca
+	|--------------------------------------------------------------------------
+	|
+	| Ver acerca se refiere a que si el usuario va a tener la potestad
+	| de ver una pantalla de "acerca de" dentro de la aplicacion. 
+	| Si el valor es falso no se renderizara link a ver acerca de.
+	|
+	*/
+
 	'viewabout'        => false,
-	/* Los nombres de los campos del objeto de entrada */
+
+	/*
+	|--------------------------------------------------------------------------
+	| Campos
+	|--------------------------------------------------------------------------
+	|
+	| Los campos son aquellos elementos que se renderizaran en el menu;
+	| Para esto se tuiliza la llave como el nombre que el sistema llama
+	| para la contruccion del mismo y como valor se emplea el nombre del
+	| campo real.
+	|
+	*/
+	
 	'campos'=>array(
+
 		'titulo'  => 'nombre',
 		'ruta'    => 'ruta',
 		'icono'   => 'icono',
 		'menuid'  => 'menuid',
 		'padreid' => 'padreid'
+		
 	)
 );
