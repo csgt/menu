@@ -37,17 +37,17 @@
           <span class="glyphicon glyphicon-user"></span><b class="caret"></b></a>
           <ul class="dropdown-menu">
             @if(Config::get('menu::editprofile'))
-              <li><a href="#"><span class="glyphicon glyphicon-tasks"></span> Editar Perfil</a></li>
+              <li><a href="{{ URL::to(Config::get('menu::editprofileurl')) }}"><span class="glyphicon glyphicon-tasks"></span> Editar Perfil</a></li>
               <li role="presentation" class="divider"></li>
             @endif
 
             @if(Config::get('menu::viewhelp') || Config::get('menu::viewabout'))
               @if(Config::get('menu::viewhelp'))
-                <li><a href="#"><span class="glyphicon glyphicon-question-sign"></span> Ayuda</a></li>
+                <li><a href="{{ URL::to(Config::get('menu::viewhelpurl')) }}"><span class="glyphicon glyphicon-question-sign"></span> Ayuda</a></li>
               @endif
               @if(Config::get('menu::viewabout'))
                 <li>
-                  <a href="/about">
+                  <a href="{{ URL::to(Config::get('menu::viewabouturl')) }}">
                     <span class="glyphicon glyphicon-info-sign"></span> 
                     Acerca de...
                   </a>
