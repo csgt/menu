@@ -29,7 +29,7 @@ class Menu {
 			}
 
 			if ($primero) $this->texto .= "<ul class='" . $estiloUL . "'>";			
-			$this->texto .= "<li" . ($item['ruta']==''?" class='" . $estiloLI . "'":"") . ">";
+			$this->texto .= "<li class='csgtmenu" . $item['menuid'] . ($item['ruta']==''?" " . $estiloLI :"") . "'>";
 			
 			$icon = "<span class=\"glyphicon " . $item['icono'] . "\"></span>";
 			
