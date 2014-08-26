@@ -54,7 +54,13 @@ class Menu {
 			}
 
 			else {
-				$this->texto .= "<a href='/" . $item['ruta'] . "'>";
+				$pos = strpos($item['ruta'], '.index');
+				if($pos === false)
+					$r = $item['ruta'].'.index';
+				else
+					$r = $item['ruta'];
+				
+				$this->texto .= "<a href='" . route($r) . "'>";
 				if ($item['icono']<>'') $this->texto .= $icon;
 			  $this->texto .= $item['titulo'] . "</a>";
 			}
