@@ -1,8 +1,7 @@
 <?php 
 
 namespace Csgt\Menu;
-use Config;
-use View;
+use Config, View, Exception;
 use AuthMenu;
 
 class Menu {
@@ -75,8 +74,9 @@ class Menu {
 	function generarMenu($aMenuItems) {
 		$padreAnt = 'Primero';
 		$k=0;
-		
-		try{
+		if (sizeof($aMenuItems)==0) 
+			return View::make('menu::menutemplate')->with('elMenu', '&nbsp;')->render();
+
 			foreach($aMenuItems as $m) {
 				$m = (object)$m;
 				$padreID = (int)$m->padreid;
@@ -91,8 +91,6 @@ class Menu {
 
 			$this->generarNivel(0,1);
 			return View::make('menu::menutemplate')->with('elMenu', $this->texto)->render();
-		} catch(\Exception $e){
-			return '<div class="alert alert-danger"><strong>Error:</strong> Se ha producido un error con el siguiente mensaje:</div><ul><li>'.$e->getMessage().'</li></ul>';
-		}
+		
 	}
 }
