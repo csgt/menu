@@ -37,7 +37,7 @@ return array(
 	|
 	*/
 
-	'editprofile'      => true,
+	'editprofile'      => false,
 	'editprofileurl'   => 'editarperfil',
 
 	/*
@@ -51,7 +51,7 @@ return array(
 	|
 	*/
 
-	'viewhelp'         => true,
+	'viewhelp'         => false,
 	'viewhelpurl'      => 'ayuda',
 	
 	/*
@@ -65,7 +65,7 @@ return array(
 	|
 	*/
 
-	'viewabout'        => true,
+	'viewabout'        => false,
 	'viewabouturl'     => 'about',
 
 	/*
