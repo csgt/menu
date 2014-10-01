@@ -37,8 +37,8 @@ return array(
 	|
 	*/
 
-	'editprofile'      => false,
-	'editprofileurl'   => 'editarperfil',
+	'editprofile'      => true,
+	'editprofileurl'   => 'perfil/editar',
 
 	/*
 	|--------------------------------------------------------------------------
