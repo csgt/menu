@@ -24,8 +24,8 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a href="{{ URL::to(Config::get('logo::ruta','index.index')) }}">
-      	{{ HTML::image(Config::get('logo::imagen','images/logo-menu.png'), $alt=Config::get('logo::alt','Logo')) }}
+      <a href="{{ URL::to(Config::get('menu::logo.ruta','index.index')) }}">
+      	{{ HTML::image(Config::get('menu::logo.imagen','images/logo-menu.png'), $alt=Config::get('menu::logo.alt','Logo')) }}
       </a>
     </div>
     <div class="navbar-collapse collapse">
