@@ -9,7 +9,7 @@ class MigrationCrearTablaMenu extends Migration {
 		Schema::create('authmenu', function(Blueprint $table) {
 			$table->increments('menuid');
 			$table->integer('padreid')->nullable()->unsigned();
-			$table->integer('modulpermisoid')->nullable()->unsigned();
+			$table->integer('modulopermisoid')->nullable()->unsigned();
 			$table->string('nombre',50);
 			$table->integer('orden');
 			$table->string('icono',50)->nullable();
