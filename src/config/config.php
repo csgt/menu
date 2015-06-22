@@ -11,7 +11,6 @@ return array(
 	| asignados a un rol que posteriormente es asignado a un usuario.
 	|
 	*/
-
 	'usarRoles'        => true,
 
 	/*
@@ -97,12 +96,24 @@ return array(
 	*/
 	
 	'campos'=>array(
-
 		'titulo'  => 'nombre',
 		'ruta'    => 'ruta',
 		'icono'   => 'icono',
 		'menuid'  => 'menuid',
 		'padreid' => 'padreid'
-		
-	)
+	),
+
+	/*
+	|--------------------------------------------------------------------------
+	| Estilos
+	|--------------------------------------------------------------------------
+	|
+	| Estilos que se le aplican al 
+	| Para esto se tuiliza la llave como el nombre que el sistema llama
+	| para la contruccion del mismo y como valor se emplea el nombre del
+	| campo real.
+	|
+	*/
+	'estilos'  => 'navbar navbar-default navbar-fixed-top',
+
 );
