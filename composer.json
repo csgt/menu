@@ -1,19 +1,20 @@
 {
-    "name": "csgt/menu",
-    "description": "",
-    "authors": [
-        {
-            "name": "CS",
-            "email": "info@cs.com.gt"
-        }
-    ],
-    "require": {
-        "php": ">=5.5.9"
-    },
-    "autoload": {
-        "psr-0": {
-            "Csgt\\Menu\\": "src/"
-        }
-    },
-    "minimum-stability": "stable"
+  "name": "csgt/menu",
+  "description": "",
+  "authors": [
+    {
+      "name": "CS",
+      "email": "software@cs.com.gt"
+    }
+  ],
+  "require": {
+    "illuminate/support": "~5.1",
+    "php" : ">=5.3.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Csgt\\Menu\\": "src"
+    }
+  },
+  "minimum-stability" : "stable"
 }
