@@ -9,7 +9,7 @@
 		padding-right: 2px;
 	}
 </style>
-<div class="{{config('csgtmenu.estilos','navbar navbar-default navbar-fixed-top')}}" role="navigation">
+<div class="{!!config('csgtmenu.estilos','navbar navbar-default navbar-fixed-top')!!}" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -18,32 +18,32 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a href="{{ URL::route(config('csgtmenu.logo.ruta','index.index')) }}">
-      	<img src="{{config('csgtmenu.logo.imagen','/images/logo-menu.png')}}" alt="{{config('csgtmenu.logo.alt','Logo')}}">
+      <a href="{!! URL::route(config('csgtmenu.logo.ruta','index.index')) !!}">
+      	<img src="{!!config('csgtmenu.logo.imagen','/images/logo-menu.png')!!}" alt="{!!config('csgtmenu.logo.alt','Logo')!!}">
       </a>
     </div>
     <div class="navbar-collapse collapse">
-      {{ $elMenu }}
+      {!! $elMenu !!}
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
           @if(config('csgtmenu.rendernombremenu'))
-            @if (Auth::user()) {{ Auth::user()->nombre }}&nbsp; @endif
+            @if (Auth::user()) {!! Auth::user()->nombre !!}&nbsp; @endif
           @endif
           <span class="glyphicon glyphicon-user"></span><b class="caret"></b></a>
           <ul class="dropdown-menu">
             @if(config('csgtmenu.editprofile'))
-              <li><a href="{{ URL::to(config('csgtmenu.editprofileurl')) }}"><span class="glyphicon glyphicon-tasks"></span> Editar Perfil</a></li>
+              <li><a href="{!! URL::to(config('csgtmenu.editprofileurl')) !!}"><span class="glyphicon glyphicon-tasks"></span> Editar Perfil</a></li>
               <li role="presentation" class="divider"></li>
             @endif
 
             @if(config('csgtmenu.viewhelp') || config('csgtmenu.viewabout'))
               @if(config('csgtmenu.viewhelp'))
-                <li><a href="{{ URL::to(config('csgtmenu.viewhelpurl')) }}"><span class="glyphicon glyphicon-question-sign"></span> Ayuda</a></li>
+                <li><a href="{!! URL::to(config('csgtmenu.viewhelpurl')) !!}"><span class="glyphicon glyphicon-question-sign"></span> Ayuda</a></li>
               @endif
               @if(config('csgtmenu.viewabout'))
                 <li>
-                  <a href="{{ URL::to(config('csgtmenu.viewabouturl')) }}">
+                  <a href="{!! URL::to(config('csgtmenu.viewabouturl')) !!}">
                     <span class="glyphicon glyphicon-info-sign"></span> 
                     Acerca de...
                   </a>
@@ -52,7 +52,7 @@
               <li role="presentation" class="divider"></li>
             @endif
 
-            <li><a href="{{ URL::to('logout') }}"><span class="glyphicon glyphicon-lock"></span> Cerrar sesi&oacute;n</a></li>
+            <li><a href="{!! URL::to('logout') !!}"><span class="glyphicon glyphicon-lock"></span> Cerrar sesi&oacute;n</a></li>
           </ul>
         </li>
       </ul>
