@@ -8,10 +8,13 @@ use Illuminate\Foundation\AliasLoader;
 class MenuServiceProvider extends ServiceProvider {
 
     public function boot() {
-      //$this->package('csgt/menu');
       $this->mergeConfigFrom(__DIR__ . '/config/csgtmenu.php', 'csgtmenu');
       $this->loadViewsFrom(__DIR__ . '/resources/views/','csgtmenu');
       AliasLoader::getInstance()->alias('Menu','Csgt\Menu\Menu');
+
+      $this->publishes([
+        __DIR__.'/database/migrations' => $this->app->databasePath() . '/migrations',
+      ], 'migrations');
     }
 
     public function register() {
