@@ -15,6 +15,10 @@ class MenuServiceProvider extends ServiceProvider {
       $this->publishes([
         __DIR__.'/database/migrations' => $this->app->databasePath() . '/migrations',
       ], 'migrations');
+
+      $this->publishes([
+        __DIR__.'/config/csgtmenu.php' => config_path('csgtmenu.php'),
+      ], 'config');
     }
 
     public function register() {
