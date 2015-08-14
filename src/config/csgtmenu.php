@@ -114,6 +114,6 @@ return array(
 	| campo real.
 	|
 	*/
-	'estilos'  => 'navbar navbar-default navbar-fixed-top',
+	'estilos'  => 'navbar navbar-default',
 
 );
