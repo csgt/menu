@@ -22,11 +22,11 @@ class MenuServiceProvider extends ServiceProvider {
     ], 'config');
 
     $this->publishes([
-      __DIR__.'/resources/lang/en/menu.php' => base_path('/resources/lang/packages/en/csgtmenu/menu.php'),
+      __DIR__.'/resources/lang/en/' => base_path('/resources/lang/packages/en/csgtmenu/'),
     ], 'lang');
 
     $this->publishes([
-      __DIR__.'/resources/lang/es/menu.php' => base_path('/resources/lang/packages/es/csgtmenu/menu.php'),
+      __DIR__.'/resources/lang/es/' => base_path('/resources/lang/packages/es/csgtmenu/'),
     ], 'lang');
   }
 
