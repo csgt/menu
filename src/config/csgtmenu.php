@@ -15,11 +15,24 @@ return array(
 
 	/*
 	|--------------------------------------------------------------------------
+	| Usar Traducciones
+	|--------------------------------------------------------------------------
+	|
+	| Esto nos indica si los nombres que se obtienen corresponden a el nombre
+	| real que se debe mostar en el menu, o si estos son las llaves para un 
+	| translation en resources/packages/csgtmenu/xx/titulos.php
+	|
+	*/
+	'usarLang'        => false,
+
+
+	/*
+	|--------------------------------------------------------------------------
 	| Renderizar Nombre
 	|--------------------------------------------------------------------------
 	|
 	| Renderizar el nombre del usuario en el menu despliega el nombre 
-	| registrado del usuario y no unicamentge un icono de usuario generico.
+	| registrado del usuario y no unicamente un icono de usuario generico.
 	|
 	*/
 
@@ -89,7 +102,7 @@ return array(
 	|--------------------------------------------------------------------------
 	|
 	| Los campos son aquellos elementos que se renderizaran en el menu;
-	| Para esto se tuiliza la llave como el nombre que el sistema llama
+	| Para esto se utiliza la llave como el nombre que el sistema llama
 	| para la contruccion del mismo y como valor se emplea el nombre del
 	| campo real.
 	|
@@ -108,10 +121,7 @@ return array(
 	| Estilos
 	|--------------------------------------------------------------------------
 	|
-	| Estilos que se le aplican al 
-	| Para esto se tuiliza la llave como el nombre que el sistema llama
-	| para la contruccion del mismo y como valor se emplea el nombre del
-	| campo real.
+	| Estilos que se le aplican a la barra de navegacion superior
 	|
 	*/
 	'estilos'  => 'navbar navbar-default',

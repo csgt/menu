@@ -26,6 +26,13 @@ class Menu {
 					break;
 			}
 
+			if(config('csgtmenu.usarLang')===true) {
+				$titulo = trans('csgtmenu::titulos.' . $item['titulo']);
+			}
+			else {
+				$titulo = $item['titulo'];
+			}
+
 			if ($primero) $this->texto .= "<ul class='" . $estiloUL . "'>";			
 			$this->texto .= "<li class='csgtmenu" . $item['menuid'] . ($item['ruta']==''?" " . $estiloLI :"") . "'>";
 			
@@ -35,12 +42,12 @@ class Menu {
 				if ($aNivel==1) {
 					$this->texto .= "<a class='dropdown-toggle' data-toggle='dropdown' href='#'>";
 					if ($item['icono']<>'') $this->texto .= $icon;
-					$this->texto .= $item['titulo'] . "<b class='caret'></b></a>";
+					$this->texto .= $titulo . "<b class='caret'></b></a>";
 				}
 				else {
 					$this->texto .= "<a tabindex='-1' href='#'>";
 					if ($item['icono']<>'') $this->texto .= $icon;
-					$this->texto .= $item['titulo'] . "</a>";
+					$this->texto .= $titulo . "</a>";
 				}
 				$this->generarNivel($item['menuid'], $aNivel+1);
 			}
@@ -48,13 +55,13 @@ class Menu {
 			elseif ($item['ruta']=='/') {
 				$this->texto .= "<a href='" . $item['ruta'] . "'>";
 				if ($item['icono']<>'') $this->texto .= $icon;
-				$this->texto .= $item['titulo'] . "</a>";
+				$this->texto .= $titulo . "</a>";
 			}
 
 			else {
 				$this->texto .= "<a href='" . route($item['ruta']) . "'>";
 				if ($item['icono']<>'') $this->texto .= $icon;
-			  $this->texto .= $item['titulo'] . "</a>";
+			  $this->texto .= $titulo . "</a>";
 			}
 			
 			$this->texto .="</li>";
