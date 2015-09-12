@@ -33,13 +33,13 @@
           <span class="glyphicon glyphicon-user"></span><b class="caret"></b></a>
           <ul class="dropdown-menu">
             @if(config('csgtmenu.editprofile'))
-              <li><a href="{!! URL::to(config('csgtmenu.editprofileurl')) !!}"><span class="glyphicon glyphicon-tasks"></span> Editar Perfil</a></li>
+              <li><a href="{!! URL::to(config('csgtmenu.editprofileurl')) !!}"><span class="glyphicon glyphicon-tasks"></span>{{trans('csgtmenu::menu.editarperfil')}}</a></li>
               <li role="presentation" class="divider"></li>
             @endif
 
             @if(config('csgtmenu.viewhelp') || config('csgtmenu.viewabout'))
               @if(config('csgtmenu.viewhelp'))
-                <li><a href="{!! URL::to(config('csgtmenu.viewhelpurl')) !!}"><span class="glyphicon glyphicon-question-sign"></span> Ayuda</a></li>
+                <li><a href="{!! URL::to(config('csgtmenu.viewhelpurl')) !!}"><span class="glyphicon glyphicon-question-sign"></span>{{trans('csgtmenu::menu.ayuda')}}</a></li>
               @endif
               @if(config('csgtmenu.viewabout'))
                 <li>
@@ -52,7 +52,7 @@
               <li role="presentation" class="divider"></li>
             @endif
 
-            <li><a href="{!! URL::to('logout') !!}"><span class="glyphicon glyphicon-lock"></span> Cerrar sesi&oacute;n</a></li>
+            <li><a href="{!! URL::to('logout') !!}"><span class="glyphicon glyphicon-lock"></span>{{trans('csgtmenu::menu.cerrarsesion')}}</a></li>
           </ul>
         </li>
       </ul>
