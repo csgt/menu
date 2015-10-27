@@ -36,7 +36,7 @@ return array(
 	*/
 
 	'logo' => array(
-		'imagen' =>'images/logo-menu.png',
+		'imagen' =>'/images/logo-menu.png',
 		'alt' 	 => 'Logo',
 		'ruta' 	 => 'index.index'
 	),
