@@ -52,7 +52,7 @@
               <li role="presentation" class="divider"></li>
             @endif
 
-            <li><a href="{!! URL::to('/auth/logout') !!}"><span class="glyphicon glyphicon-lock"></span>{{trans('csgtmenu::menu.cerrarsesion')}}</a></li>
+            <li><a href="{!! URL::to('/logout') !!}"><span class="glyphicon glyphicon-lock"></span>{{trans('csgtmenu::menu.cerrarsesion')}}</a></li>
           </ul>
         </li>
       </ul>

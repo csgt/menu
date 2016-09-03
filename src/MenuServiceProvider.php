@@ -9,7 +9,6 @@ class MenuServiceProvider extends ServiceProvider {
 
   public function boot() {
     $this->mergeConfigFrom(__DIR__ . '/config/csgtmenu.php', 'csgtmenu');
-    $this->loadViewsFrom(__DIR__ . '/resources/views/','csgtmenu');
     $this->loadTranslationsFrom(__DIR__.'/resources/lang/', 'csgtmenu');
     AliasLoader::getInstance()->alias('Menu','Csgt\Menu\Menu');
 
@@ -27,6 +26,10 @@ class MenuServiceProvider extends ServiceProvider {
   }
 
   public function register() {
+    $this->commands([
+      Console\MakeMenuCommand::class
+    ]);
+
     config([
       'config/config.php',
     ]);

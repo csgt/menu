@@ -1,0 +1,33 @@
+<?php
+
+namespace Csgt\Menu\Console;
+
+use Illuminate\Console\Command;
+use Illuminate\Console\AppNamespaceDetectorTrait;
+
+class MakeMenuCommand extends Command {
+  use AppNamespaceDetectorTrait;
+
+  protected $signature = 'make:csgtmenu';
+
+  protected $description = 'Vista para Menu';
+
+  protected $views = [
+    'layout/menu.stub' => 'layouts/menu.blade.php',
+  ];
+
+  public function fire() {
+    $this->exportViews(); 
+    $this->info('Vistas para Menu generadas correctamente.');
+  }
+
+  protected function exportViews() {
+    foreach ($this->views as $key => $value) {
+      copy(
+        __DIR__.'/stubs/make/views/'.$key,
+        base_path('resources/views/'.$value)
+      );
+    }
+  }
+
+}

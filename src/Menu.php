@@ -14,7 +14,7 @@ class Menu {
 			switch ($aNivel) {
 				case 1:
 					$estiloUL = 'nav navbar-nav';
-					$estiloLI  = 'dropdown';
+					$estiloLI  = '';
 					break;
 				case 2:
 					$estiloUL = 'dropdown-menu';
@@ -32,15 +32,18 @@ class Menu {
 			else {
 				$titulo = $item['titulo'];
 			}
+			
+			if ($item['padreid']) {
 
-			if ($primero) $this->texto .= "<ul class='" . $estiloUL . "'>";			
+			}
+
 			$this->texto .= "<li class='csgtmenu" . $item['menuid'] . ($item['ruta']==''?" " . $estiloLI :"") . "'>";
 			
-			$icon = "<span class=\"glyphicon " . $item['icono'] . "\"></span>";
+			$icon = "<i class=\"" . $item['icono'] . "\"></i>";
 			
 			if ($item['ruta']=='') {
 				if ($aNivel==1) {
-					$this->texto .= "<a class='dropdown-toggle' data-toggle='dropdown' href='#'>";
+					$this->texto .= "<a href='#'>";
 					if ($item['icono']<>'') $this->texto .= $icon;
 					$this->texto .= $titulo . "<b class='caret'></b></a>";
 				}
@@ -67,14 +70,53 @@ class Menu {
 			$this->texto .="</li>";
 			$primero=false;
 		}
-		if (!$primero)  $this->texto .= "</ul>";
 	}
 
-	function generarMenu($aMenuItems) {
+	function generarMenu($aCollection) {
+		$tops = $aCollection->where('padreid', 0);
+		foreach ($tops as $top) {
+			if(config('csgtmenu.usarLang')===true) {
+				$titulo = trans('csgtmenu::titulos.' . $top["nombre"]);
+			}
+			else {
+				$titulo = $top["nombre"];
+			}
+
+			$tieneHijos = $aCollection->where('padreid', $top["menuid"])->count()>0;
+
+			if ($tieneHijos) { //Tiene hijos
+				$this->texto .= '<li class="treeview">';
+				$this->texto .= "<a href='#'>";
+					
+			}
+			else {
+				$this->texto .= "<li>";
+				$this->texto .= "<a href='" . route($top["ruta"]) . "'>";
+			}
+			if ($top["icono"] <>'') $this->texto .= "<i class='" . $top["icono"] . "'></i>";
+			$this->texto .= "<span>" . $titulo . "</span>";
+			if($tieneHijos) {
+				$this->texto .= "<span class='pull-right-container'><i class='fa fa-angle-left pull-right'></i></span>";
+			}
+			$this->texto .= "</a>";
+			$this->texto .= "</li>";
+		}
+		return $this->texto;
+		// $a = $tops->map(
+		// 	function($menuItem) use ($aCollection){
+		// 		$collectionMenuItem = collect($menuItem);
+		// 		dd($collectionMenuItem);
+		// 		return $collectionMenuItem->put('hijos', collect($aCollection->where('padreid', $collectionMenuItem->menuid)));	
+		// 	}
+		// );
+
+		//dd($a);
+
+		/*
 		$padreAnt = 'Primero';
 		$k=0;
 		if (sizeof($aMenuItems)==0) 
-			return view('csgtmenu::menutemplate')->with('elMenu', '&nbsp;')->render();
+			return view('layouts.menu')->with('elMenu', '&nbsp;')->render();
 
 			foreach($aMenuItems as $m) {
 				$m = (object)$m;
@@ -89,6 +131,8 @@ class Menu {
 			}
 
 			$this->generarNivel(0,1);
-			return view('csgtmenu::menutemplate')->with('elMenu', $this->texto)->render();
+			dd($this->texto);
+			return view('layouts.menu')->with('elMenu', $this->texto)->render();
+			*/
 	}
 }
