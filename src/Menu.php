@@ -1,138 +1,51 @@
 <?php 
 
 namespace Csgt\Menu;
-use Config, View, Exception;
+use Config, View, Exception, Request, Route;
 
 class Menu {
 	
 	protected $texto;
-	protected $matriz;
 
-	function generarNivel($aID, $aNivel) {
-		$primero = true;
-		foreach ($this->matriz[$aID] AS $item) {
-			switch ($aNivel) {
-				case 1:
-					$estiloUL = 'nav navbar-nav';
-					$estiloLI  = '';
-					break;
-				case 2:
-					$estiloUL = 'dropdown-menu';
-					$estiloLI = 'dropdown-submenu';
-					break;
-				default:
-					$estiloUL = 'dropdown-menu';
-					$estiloLI = 'dropdown-submenu';
-					break;
-			}
-
-			if(config('csgtmenu.usarLang')===true) {
-				$titulo = trans('csgtmenu::titulos.' . $item['titulo']);
-			}
-			else {
-				$titulo = $item['titulo'];
-			}
-			
-			if ($item['padreid']) {
-
-			}
-
-			$this->texto .= "<li class='csgtmenu" . $item['menuid'] . ($item['ruta']==''?" " . $estiloLI :"") . "'>";
-			
-			$icon = "<i class=\"" . $item['icono'] . "\"></i>";
-			
-			if ($item['ruta']=='') {
-				if ($aNivel==1) {
-					$this->texto .= "<a href='#'>";
-					if ($item['icono']<>'') $this->texto .= $icon;
-					$this->texto .= $titulo . "<b class='caret'></b></a>";
-				}
-				else {
-					$this->texto .= "<a tabindex='-1' href='#'>";
-					if ($item['icono']<>'') $this->texto .= $icon;
-					$this->texto .= $titulo . "</a>";
-				}
-				$this->generarNivel($item['menuid'], $aNivel+1);
-			}
-
-			elseif ($item['ruta']=='/') {
-				$this->texto .= "<a href='" . $item['ruta'] . "'>";
-				if ($item['icono']<>'') $this->texto .= $icon;
-				$this->texto .= $titulo . "</a>";
-			}
-
-			else {
-				$this->texto .= "<a href='" . route($item['ruta']) . "'>";
-				if ($item['icono']<>'') $this->texto .= $icon;
-			  $this->texto .= $titulo . "</a>";
-			}
-			
-			$this->texto .="</li>";
-			$primero=false;
-		}
+	function generarMenu($aCollection){
+		$this->generarNivel($aCollection, 0);
+		return $this->texto;
 	}
 
-	function generarMenu($aCollection) {
-		$tops = $aCollection->where('padreid', 0);
-		foreach ($tops as $top) {
+	function generarNivel($aCollection, $aPadreId) {
+		$niveles = $aCollection->where('padreid', $aPadreId);
+		foreach ($niveles as $nivel) {
 			if(config('csgtmenu.usarLang')===true) {
-				$titulo = trans('csgtmenu::titulos.' . $top["nombre"]);
+				$titulo = trans('csgtmenu::titulos.' . $nivel["nombre"]);
 			}
 			else {
-				$titulo = $top["nombre"];
+				$titulo = $nivel["nombre"];
 			}
 
-			$tieneHijos = $aCollection->where('padreid', $top["menuid"])->count()>0;
+			$clase = '';
+			if ($nivel["ruta"] <> '') {
+				$clase = (Route::is($nivel["ruta"])?'active':'');
+			}
+			$tieneHijos = $aCollection->where('padreid', $nivel["menuid"])->count()>0;
 
 			if ($tieneHijos) { //Tiene hijos
-				$this->texto .= '<li class="treeview">';
+				$this->texto .= '<li class="treeview ' . ($aPadreId==0?'treeview-padre':'') . '">';
 				$this->texto .= "<a href='#'>";
 					
 			}
 			else {
-				$this->texto .= "<li>";
-				$this->texto .= "<a href='" . route($top["ruta"]) . "'>";
+				$this->texto .= "<li class='" . $clase . "'>";
+				$this->texto .= "<a href='" . route($nivel["ruta"]) . "'>";
 			}
-			if ($top["icono"] <>'') $this->texto .= "<i class='" . $top["icono"] . "'></i>";
+			if ($nivel["icono"] <>'') $this->texto .= "<i class='" . $nivel["icono"] . "'></i>";
 			$this->texto .= "<span>" . $titulo . "</span>";
 			if($tieneHijos) {
 				$this->texto .= "<span class='pull-right-container'><i class='fa fa-angle-left pull-right'></i></span>";
 			}
-			$this->texto .= "</a>";
-			$this->texto .= "</li>";
+			$this->texto .= "</a>" . ($tieneHijos?"<ul class='treeview-menu'>":"");
+
+			$this->generarNivel($aCollection, $nivel["menuid"]);
+			$this->texto .= ($tieneHijos?"</ul>":"") . "</li>";
 		}
-		return $this->texto;
-		// $a = $tops->map(
-		// 	function($menuItem) use ($aCollection){
-		// 		$collectionMenuItem = collect($menuItem);
-		// 		dd($collectionMenuItem);
-		// 		return $collectionMenuItem->put('hijos', collect($aCollection->where('padreid', $collectionMenuItem->menuid)));	
-		// 	}
-		// );
-
-		//dd($a);
-
-		/*
-		$padreAnt = 'Primero';
-		$k=0;
-		if (sizeof($aMenuItems)==0) 
-			return view('layouts.menu')->with('elMenu', '&nbsp;')->render();
-
-			foreach($aMenuItems as $m) {
-				$m = (object)$m;
-				$padreID = (int)$m->padreid;
-				if ($padreID<>$padreAnt) $k=0;
-				foreach (config('csgtmenu.campos') as $key=>$val) {
-					$this->matriz[$padreID][$k][$key] = $m->$val;
-				}
-
-				$k++;
-				$padreAnt = $padreID;
-			}
-
-			$this->generarNivel(0,1);
-			dd($this->texto);
-			return view('layouts.menu')->with('elMenu', $this->texto)->render();
-			*/
 	}
 }
