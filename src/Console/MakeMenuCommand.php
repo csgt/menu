@@ -3,10 +3,8 @@
 namespace Csgt\Menu\Console;
 
 use Illuminate\Console\Command;
-use Illuminate\Console\AppNamespaceDetectorTrait;
 
 class MakeMenuCommand extends Command {
-  use AppNamespaceDetectorTrait;
 
   protected $signature = 'make:csgtmenu';
 
