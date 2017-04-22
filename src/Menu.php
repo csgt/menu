@@ -1,10 +1,8 @@
-<?php 
+<?php namespace Csgt\Menu;
 
-namespace Csgt\Menu;
-use Config, View, Exception, Request, Route;
+use Config, View, Exception, Request, Route, Session;
 
-class Menu {
-	
+class Menu {	
 	protected $texto;
 
 	function generarMenu($aCollection){
@@ -24,7 +22,7 @@ class Menu {
 
 			$clase = '';
 			if ($nivel["ruta"] <> '') {
-				$clase = (Route::is($nivel["ruta"])?'active':'');
+				$clase = ((Session::get('menu-selected')==$nivel["ruta"])?'active':'');
 			}
 			$tieneHijos = $aCollection->where('padreid', $nivel["menuid"])->count()>0;
 
