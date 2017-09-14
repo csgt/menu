@@ -14,8 +14,8 @@ class MakeMenuCommand extends Command {
     'layout/menu.stub' => 'layouts/menu.blade.php',
   ];
 
-  public function fire() {
-    $this->exportViews(); 
+  public function handle() {
+    $this->exportViews();
     $this->info('Vistas para Menu generadas.');
   }
 
