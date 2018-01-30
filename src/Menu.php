@@ -1,8 +1,10 @@
-<?php namespace Csgt\Menu;
+<?php
+
+namespace Csgt\Menu;
 
 use Config, View, Exception, Request, Route, Session;
 
-class Menu {	
+class Menu {
 	protected $texto;
 
 	function generarMenu($aCollection){
@@ -11,38 +13,38 @@ class Menu {
 	}
 
 	function generarNivel($aCollection, $aPadreId) {
-		$niveles = $aCollection->where('padreid', $aPadreId);
+		$niveles = $aCollection->where('parent_id', $aPadreId);
 		foreach ($niveles as $nivel) {
-			if(config('csgtmenu.usarLang')===true) {
-				$titulo = trans('csgtmenu::titulos.' . $nivel["nombre"]);
+			if(config('csgtmenu.use_trans')===true) {
+				$titulo = trans('csgtmenu::titles.' . $nivel["name"]);
 			}
 			else {
-				$titulo = $nivel["nombre"];
+				$titulo = $nivel["name"];
 			}
 
 			$clase = '';
-			if ($nivel["ruta"] <> '') {
-				$clase = ((Session::get('menu-selected')==$nivel["ruta"])?'active':'');
+			if ($nivel["route"] <> '') {
+				$clase = ((session()->get('menu-selected')==$nivel["route"])?'active':'');
 			}
-			$tieneHijos = $aCollection->where('padreid', $nivel["menuid"])->count()>0;
+			$tieneHijos = $aCollection->where('parent_id', $nivel["id"])->count()>0;
 
 			if ($tieneHijos) { //Tiene hijos
 				$this->texto .= '<li class="treeview ' . ($aPadreId==0?'treeview-padre':'') . '">';
 				$this->texto .= "<a href='#'>";
-					
+
 			}
 			else {
 				$this->texto .= "<li class='" . $clase . "'>";
-				$this->texto .= "<a href='" . route($nivel["ruta"]) . "'>";
+				$this->texto .= "<a href='" . route($nivel["route"]) . "'>";
 			}
-			if ($nivel["icono"] <>'') $this->texto .= "<i class='" . $nivel["icono"] . "'></i>";
+			if ($nivel["icon"] <>'') $this->texto .= "<i class='" . $nivel["icon"] . "'></i>";
 			$this->texto .= "<span>" . $titulo . "</span>";
 			if($tieneHijos) {
 				$this->texto .= "<span class='pull-right-container'><i class='fa fa-angle-left pull-right'></i></span>";
 			}
 			$this->texto .= "</a>" . ($tieneHijos?"<ul class='treeview-menu'>":"");
 
-			$this->generarNivel($aCollection, $nivel["menuid"]);
+			$this->generarNivel($aCollection, $nivel["id"]);
 			$this->texto .= ($tieneHijos?"</ul>":"") . "</li>";
 		}
 	}

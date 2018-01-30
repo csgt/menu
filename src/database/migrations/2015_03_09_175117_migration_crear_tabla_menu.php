@@ -6,23 +6,23 @@ use Illuminate\Database\Migrations\Migration;
 class MigrationCrearTablaMenu extends Migration {
 
 	public function up() {
-		Schema::create('authmenu', function(Blueprint $table) {
-			$table->increments('menuid');
-			$table->integer('padreid')->nullable()->unsigned();
-			$table->integer('modulopermisoid')->nullable()->unsigned();
-			$table->string('nombre',50);
-			$table->integer('orden');
-			$table->string('icono',50)->nullable();
+		Schema::create('menu', function(Blueprint $table) {
+			$table->increments('id');
+			$table->integer('parent_id')->nullable()->unsigned();
+			$table->integer('module_permission_id')->nullable()->unsigned();
+			$table->string('name', 50);
+			$table->integer('order');
+			$table->string('icon', 50)->nullable();
 			$table->timestamps();
 
-			$table->foreign('modulopermisoid')->references('modulopermisoid')->on('authmodulopermisos')->onDelete('restrict')->onUpdate('cascade');
-			$table->foreign('padreid')->references('menuid')->on('authmenu')->onDelete('restrict')->onUpdate('cascade');
+			$table->foreign('module_permission_id')->references('id')->on('module_permissions')->onDelete('restrict')->onUpdate('cascade');
+			$table->foreign('parent_id')->references('id')->on('menu')->onDelete('restrict')->onUpdate('cascade');
 
 		});
 	}
 
 	public function down() {
-		Schema::drop('authmenu');
+		Schema::drop('menu');
 	}
 
 }
