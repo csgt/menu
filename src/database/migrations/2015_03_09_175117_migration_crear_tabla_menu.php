@@ -18,7 +18,7 @@ class MigrationCrearTablaMenu extends Migration
             $table->timestamps();
 
             $table->foreign('module_permission_id')->references('id')->on('module_permissions')->onDelete('restrict')->onUpdate('cascade');
-            $table->foreign('parent_id')->references('id')->on('menu')->onDelete('restrict')->onUpdate('cascade');
+            $table->foreign('parent_id')->references('id')->on('menus')->onDelete('restrict')->onUpdate('cascade');
         });
     }
 
