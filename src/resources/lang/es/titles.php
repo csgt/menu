@@ -1,4 +1,5 @@
 <?php
+
 return [
-	'inicio' => 'Inicio',
+    'inicio' => 'Inicio',
 ];

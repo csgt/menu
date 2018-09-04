@@ -1,4 +1,5 @@
 <?php
+
 return [
-	'use_trans' => false,
+    'use_trans' => false,
 ];
