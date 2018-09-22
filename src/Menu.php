@@ -33,26 +33,36 @@ class Menu
             $hasChildren = $aCollection->where('parent_id', $level["id"])->count() > 0;
 
             if ($hasChildren) {
-                $this->text .= '<li class="treeview ' . ($aParentId == 0 ? 'treeview-padre' : '') . '">';
-                $this->text .= "<a href='#'>";
+                $this->text .= "<li class=\"nav-item has-treeview\">
+                    <a href=\"#\" class=\"nav-link\">";
+
+                if ($level["icon"] != "") {
+                    $this->text .= "<i class=\"nav-icon " . $level["icon"] . "\"></i>";
+                }
+
+                $this->text .= "
+                        <p>
+                            " . $title . "
+                            <i class=\"fas fa-angle-left right\"></i>
+                        </p>
+                    </a>
+                    <ul class=\"nav nav-treeview\">";
 
             } else {
-                $this->text .= "<li class='" . $class . "'>";
+                $this->text .= "<li class=\"nav-item\">";
                 if (array_key_exists("params", $level)) {
-                    $this->text .= "<a href='" . route($level["route"], $level["params"]) . "'>";
+                    $this->text .= "<a href=\"" . route($level["route"], $level["params"]) . "\" class=\"nav-link\">";
                 } else {
-                    $this->text .= "<a href='" . route($level["route"]) . "'>";
+                    $this->text .= "<a href=\"" . route($level["route"]) . "\" class=\"nav-link\">";
                 }
+                if ($level["icon"] != "") {
+                    $this->text .= "<i class=\"nav-icon " . $level["icon"] . "\"></i>";
+                } else {
+                    $this->text .= "<i class=\"nav-icon far fa-circle\"></i>";
+                }
+                $this->text .= "<p>" . $title . "</p>";
+                $this->text .= "</a>";
             }
-            if ($level["icon"] != '') {
-                $this->text .= "<i class='" . $level["icon"] . "'></i>";
-            }
-
-            $this->text .= "<span>" . $title . "</span>";
-            if ($hasChildren) {
-                $this->text .= "<span class='pull-right-container'><i class='fa fa-angle-left pull-right'></i></span>";
-            }
-            $this->text .= "</a>" . ($hasChildren ? "<ul class='treeview-menu'>" : "");
 
             $this->level($aCollection, $level["id"]);
             $this->text .= ($hasChildren ? "</ul>" : "") . "</li>";
