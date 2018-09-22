@@ -38,11 +38,10 @@ class Menu
 
             } else {
                 $this->text .= "<li class='" . $class . "'>";
-
-                if (!empty($level["params"])) {
-                    $this->text .= "<a href='" . route($level["ruta"], $level["params"]) . "'>";
+                if (array_key_exists("params", $level)) {
+                    $this->text .= "<a href='" . route($level["route"], $level["params"]) . "'>";
                 } else {
-                    $this->text .= "<a href='" . route($level["ruta"]) . "'>";
+                    $this->text .= "<a href='" . route($level["route"]) . "'>";
                 }
             }
             if ($level["icon"] != '') {
