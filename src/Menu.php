@@ -51,9 +51,9 @@ class Menu
             } else {
                 $this->text .= "<li class=\"nav-item\">";
                 if (array_key_exists("params", $level)) {
-                    $this->text .= "<a href=\"" . route($level["route"], $level["params"]) . "\" class=\"nav-link\">";
+                    $this->text .= "<a href=\"" . route($level["route"], $level["params"]) . "\" class=\"$class nav-link\">";
                 } else {
-                    $this->text .= "<a href=\"" . route($level["route"]) . "\" class=\"nav-link\">";
+                    $this->text .= "<a href=\"" . route($level["route"]) . "\" class=\"$class nav-link\">";
                 }
                 if ($level["icon"] != "") {
                     $this->text .= "<i class=\"nav-icon " . $level["icon"] . "\"></i>";
