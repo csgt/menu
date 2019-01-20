@@ -28,6 +28,8 @@ class MenuServiceProvider extends ServiceProvider
 
     public function register()
     {
-
+        $this->commands([
+            Console\MakeMenuCommand::class,
+        ]);
     }
 }
