@@ -1,5 +1,5 @@
 <?php
-namespace App\Models\Menu;
+namespace {{namespace}}\Models\Menu;
 
 use Illuminate\Database\Eloquent\Model;
 
