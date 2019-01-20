@@ -1,10 +1,10 @@
 <?php
-namespace Csgt\Cancerbero\Console;
+namespace Csgt\Menu\Console;
 
+use Csgt\Menu\MakeCommand;
 use Illuminate\Console\Command;
-use Csgt\Cancerbero\MakeCommand;
 
-class MakeCancerberoCommand extends Command
+class MakeMenuCommand extends Command
 {
     use MakeCommand;
 
