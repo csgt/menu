@@ -57,8 +57,6 @@ class Menu
                 }
                 if ($level["icon"] != "") {
                     $this->text .= "<i class=\"nav-icon " . $level["icon"] . "\"></i>";
-                } else {
-                    $this->text .= "<i class=\"nav-icon far fa-circle\"></i>";
                 }
                 $this->text .= "<p>" . $title . "</p>";
                 $this->text .= "</a>";
