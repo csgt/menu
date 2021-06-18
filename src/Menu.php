@@ -1,24 +1,20 @@
 <?php
 namespace Csgt\Menu;
 
-use Route;
-use Config;
-use Session;
-
 class Menu
 {
     protected $text;
 
     public function getMenu($aCollection)
     {
-        $this->level($aCollection, 0);
+        $this->level($aCollection, null);
 
         return $this->text;
     }
 
-    private function level($aCollection, $aParentId)
+    private function level($aCollection, $aParent)
     {
-        $levels = $aCollection->where('parent_id', $aParentId);
+        $levels = $aCollection->where('parent_route', $aParent);
         foreach ($levels as $level) {
             if (config('csgtmenu.use_trans') === true) {
                 $title = trans('csgtmenu::titles.' . $level["name"]);
@@ -30,7 +26,8 @@ class Menu
             if ($level["route"] != '') {
                 $class = ((session()->get('menu-selected') == $level["route"]) ? 'active' : '');
             }
-            $hasChildren = $aCollection->where('parent_id', $level["id"])->count() > 0;
+            //$hasChildren = $aCollection->where('parent_route', $level["route"])->count() > 0;
+            $hasChildren = $level['has_children'];
 
             if ($hasChildren) {
                 $this->text .= "<li class=\"nav-item has-treeview\">
@@ -62,7 +59,7 @@ class Menu
                 $this->text .= "</a>";
             }
 
-            $this->level($aCollection, $level["id"]);
+            $this->level($aCollection, $level["route"]);
             $this->text .= ($hasChildren ? "</ul>" : "") . "</li>";
         }
     }
