@@ -3,18 +3,24 @@
     "description": "",
     "authors": [
         {
-            "name": "CS",
-            "email": "info@cs.com.gt"
+            "name": "Softlogic",
+            "email": "software@softlogic.com.gt"
         }
     ],
     "require": {
-        "php": ">=5.4.0",
-        "illuminate/support": "4.2.*"
+        "php": ">=7.2"
     },
     "autoload": {
-        "psr-0": {
-            "Csgt\\Menu\\": "src/"
+        "psr-4": {
+            "Csgt\\Menu\\": "src"
         }
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "stable",
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Csgt\\Menu\\MenuServiceProvider"
+            ]
+        }
+    }
 }
