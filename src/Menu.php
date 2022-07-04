@@ -1,8 +1,6 @@
 <?php
 namespace Csgt\Menu;
 
-use Route;
-use Config;
 use Session;
 
 class Menu
@@ -28,32 +26,32 @@ class Menu
 
             $clase = '';
             if ($nivel["ruta"] != '') {
-                $clase = ((Session::get('menu-selected') == $nivel["ruta"]) ? 'active' : '');
+                $clase = ((Session::get('menu-selected') == $nivel["ruta"]) ? 'nav-item active' : 'nav-item');
             }
             $tieneHijos = $aCollection->where('padreid', $nivel["menuid"])->count() > 0;
 
             if ($tieneHijos) {
                 //Tiene hijos
-                $this->texto .= '<li class="treeview ' . ($aPadreId == 0 ? 'treeview-padre' : '') . '">';
-                $this->texto .= "<a href='#'>";
+                $this->texto .= '<li class="nav-item has-treeview">';
+                $this->texto .= "<a href='#' class='nav-link'>";
 
             } else {
                 $this->texto .= "<li class='" . $clase . "'>";
                 if (!empty($nivel["params"])) {
-                    $this->texto .= "<a href='" . route($nivel["ruta"], $nivel["params"]) . "'>";
+                    $this->texto .= "<a class='nav-link' href='" . route($nivel["ruta"], $nivel["params"]) . "'>";
                 } else {
-                    $this->texto .= "<a href='" . route($nivel["ruta"]) . "'>";
+                    $this->texto .= "<a class='nav-link' href='" . route($nivel["ruta"]) . "'>";
                 }
             }
             if ($nivel["icono"] != '') {
-                $this->texto .= "<i class='" . $nivel["icono"] . "'></i>";
+                $this->texto .= "<i class='nav-icon " . $nivel["icono"] . "'></i>";
             }
 
-            $this->texto .= "<span>" . $titulo . "</span>";
+            $this->texto .= "<p>" . $titulo . "</p>";
             if ($tieneHijos) {
-                $this->texto .= "<span class='pull-right-container'><i class='fa fa-angle-left pull-right'></i></span>";
+                $this->texto .= "<p><i class='fas fa-angle-right right'></i></p>";
             }
-            $this->texto .= "</a>" . ($tieneHijos ? "<ul class='treeview-menu'>" : "");
+            $this->texto .= "</a>" . ($tieneHijos ? "<ul class='nav nav-treeview'>" : "");
 
             $this->generarNivel($aCollection, $nivel["menuid"]);
             $this->texto .= ($tieneHijos ? "</ul>" : "") . "</li>";
