@@ -16,12 +16,7 @@ class Menu
     {
         $levels = $aCollection->where('parent_route', $aParent);
         foreach ($levels as $level) {
-            if (config('csgtmenu.use_trans') === true) {
-                $title = trans('csgtmenu::titles.' . $level["name"]);
-            } else {
-                $title = $level["name"];
-            }
-
+            $title = __($level["name"]);
             $class = '';
             if ($level["route"] != '') {
                 $class = ((session()->get('menu-selected') == $level["route"]) ? 'active' : '');

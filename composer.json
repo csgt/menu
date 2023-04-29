@@ -1,6 +1,6 @@
 {
     "name": "csgt/menu",
-    "description": "",
+    "description": "AdminLTE bootstrap menu generator",
     "authors": [
         {
             "name": "Softlogic",
