@@ -26,7 +26,7 @@ class Menu
 
             $clase = '';
             if ($nivel["ruta"] != '') {
-                $clase = ((Session::get('menu-selected') == $nivel["ruta"]) ? 'nav-item active' : 'nav-item');
+                $clase = ((Session::get('menu-selected') == $nivel["ruta"]) ? 'nav-link active' : 'nav-link');
             }
             $tieneHijos = $aCollection->where('padreid', $nivel["menuid"])->count() > 0;
 
@@ -36,11 +36,11 @@ class Menu
                 $this->texto .= "<a href='#' class='nav-link'>";
 
             } else {
-                $this->texto .= "<li class='" . $clase . "'>";
+                $this->texto .= "<li class=\"nav-item\">";
                 if (!empty($nivel["params"])) {
-                    $this->texto .= "<a class='nav-link' href='" . route($nivel["ruta"], $nivel["params"]) . "'>";
+                    $this->texto .= "<a class='" . $clase . "' href='" . route($nivel["ruta"], $nivel["params"]) . "'>";
                 } else {
-                    $this->texto .= "<a class='nav-link' href='" . route($nivel["ruta"]) . "'>";
+                    $this->texto .= "<a class='" . $clase . "' href='" . route($nivel["ruta"]) . "'>";
                 }
             }
             if ($nivel["icono"] != '') {
