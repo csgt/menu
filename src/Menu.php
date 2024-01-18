@@ -35,7 +35,7 @@ class Menu
                 $this->text .= "
                         <p>
                             " . $title . "
-                            <i class=\"fas fa-angle-left right\"></i>
+                            <i class=\"nav-arrow fas fa-angle-right right\"></i>
                         </p>
                     </a>
                     <ul class=\"nav nav-treeview\">";
