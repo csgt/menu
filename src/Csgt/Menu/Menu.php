@@ -1,96 +1,116 @@
-<?php 
-
+<?php
 namespace Csgt\Menu;
-use Config, View, Exception;
-use AuthMenu;
 
-class Menu {
-	
-	protected $texto;
-	protected $matriz;
+use View;
+use Config;
 
-	function generarNivel($aID, $aNivel) {
-		$primero = true;
-		foreach ($this->matriz[$aID] AS $item) {
-			switch ($aNivel) {
-				case 1:
-					$estiloUL = 'nav navbar-nav';
-					$estiloLI  = 'dropdown';
-					break;
-				case 2:
-					$estiloUL = 'dropdown-menu';
-					$estiloLI = 'dropdown-submenu';
-					break;
-				default:
-					$estiloUL = 'dropdown-menu';
-					$estiloLI = 'dropdown-submenu';
-					break;
-			}
+class Menu
+{
 
-			if ($primero) $this->texto .= "<ul class='" . $estiloUL . "'>";			
-			$this->texto .= "<li class='csgtmenu" . $item['menuid'] . ($item['ruta']==''?" " . $estiloLI :"") . "'>";
-			
-			$icon = "<span class=\"glyphicon " . $item['icono'] . "\"></span>";
-			
-			if ($item['ruta']=='') {
-				if ($aNivel==1) {
-					$this->texto .= "<a class='dropdown-toggle' data-toggle='dropdown' href='#'>";
-					if ($item['icono']<>'') $this->texto .= $icon;
-					$this->texto .= $item['titulo'] . "<b class='caret'></b></a>";
-				}
-				else {
-					$this->texto .= "<a tabindex='-1' href='#'>";
-					if ($item['icono']<>'') $this->texto .= $icon;
-					$this->texto .= $item['titulo'] . "</a>";
-				}
-				$this->generarNivel($item['menuid'], $aNivel+1);
-			}
+    protected $texto;
+    protected $matriz;
 
-			elseif ($item['ruta']=='/') {
-				$this->texto .= "<a href='" . $item['ruta'] . "'>";
-				if ($item['icono']<>'') $this->texto .= $icon;
-				$this->texto .= $item['titulo'] . "</a>";
-			}
+    function generarNivel($aID, $aNivel)
+    {
+        $primero = true;
+        foreach ($this->matriz[$aID] as $item) {
+            switch ($aNivel) {
+                case 1:
+                    $estiloUL = 'nav navbar-nav';
+                    $estiloLI = 'dropdown';
+                    break;
+                case 2:
+                    $estiloUL = 'dropdown-menu';
+                    $estiloLI = 'dropdown-submenu';
+                    break;
+                default:
+                    $estiloUL = 'dropdown-menu';
+                    $estiloLI = 'dropdown-submenu';
+                    break;
+            }
 
-			else {
-				/*$pos = strpos($item['ruta'], '.index');
-				if($pos === false)
-					$r = $item['ruta'].'.index';
-				else
-					$r = $item['ruta'];*/
-				
-				$this->texto .= "<a href='" . route($item['ruta']) . "'>";
-				if ($item['icono']<>'') $this->texto .= $icon;
-			  $this->texto .= $item['titulo'] . "</a>";
-			}
-			
-			$this->texto .="</li>";
-			$primero=false;
-		}
-		if (!$primero)  $this->texto .= "</ul>";
-	}
+            if ($primero) {
+                $this->texto .= "<ul class='" . $estiloUL . "'>";
+            }
 
+            $this->texto .= "<li class='csgtmenu" . $item['menuid'] . ($item['ruta'] == '' ? " " . $estiloLI : "") . "'>";
 
-	function generarMenu($aMenuItems) {
-		$padreAnt = 'Primero';
-		$k=0;
-		if (sizeof($aMenuItems)==0) 
-			return View::make('menu::menutemplate')->with('elMenu', '&nbsp;')->render();
+            $icon = "<span class=\"glyphicon " . $item['icono'] . "\"></span>";
 
-			foreach($aMenuItems as $m) {
-				$m = (object)$m;
-				$padreID = (int)$m->padreid;
-				if ($padreID<>$padreAnt) $k=0;
-				foreach (Config::get('menu::campos') as $key=>$val) {
-					$this->matriz[$padreID][$k][$key] = $m->$val;
-				}
+            if ($item['ruta'] == '') {
+                if ($aNivel == 1) {
+                    $this->texto .= "<a class='dropdown-toggle' data-toggle='dropdown' href='#'>";
+                    if ($item['icono'] != '') {
+                        $this->texto .= $icon;
+                    }
 
-				$k++;
-				$padreAnt = $padreID;
-			}
+                    $this->texto .= $item['titulo'] . "<b class='caret'></b></a>";
+                } else {
+                    $this->texto .= "<a tabindex='-1' href='#'>";
+                    if ($item['icono'] != '') {
+                        $this->texto .= $icon;
+                    }
 
-			$this->generarNivel(0,1);
-			return View::make('menu::menutemplate')->with('elMenu', $this->texto)->render();
-		
-	}
+                    $this->texto .= $item['titulo'] . "</a>";
+                }
+                $this->generarNivel($item['menuid'], $aNivel + 1);
+            } elseif ($item['ruta'] == '/') {
+                $this->texto .= "<a href='" . $item['ruta'] . "'>";
+                if ($item['icono'] != '') {
+                    $this->texto .= $icon;
+                }
+
+                $this->texto .= $item['titulo'] . "</a>";
+            } else {
+                /*$pos = strpos($item['ruta'], '.index');
+                if($pos === false)
+                $r = $item['ruta'].'.index';
+                else
+                $r = $item['ruta'];*/
+
+                $this->texto .= "<a href='" . route($item['ruta']) . "'>";
+                if ($item['icono'] != '') {
+                    $this->texto .= $icon;
+                }
+
+                $this->texto .= $item['titulo'] . "</a>";
+            }
+
+            $this->texto .= "</li>";
+            $primero = false;
+        }
+        if (!$primero) {
+            $this->texto .= "</ul>";
+        }
+
+    }
+
+    function generarMenu($aMenuItems)
+    {
+        $padreAnt = 'Primero';
+        $k        = 0;
+        if (sizeof($aMenuItems) == 0) {
+            return View::make('menu::menutemplate')->with('elMenu', '&nbsp;')->render();
+        }
+
+        foreach ($aMenuItems as $m) {
+            $m       = (object) $m;
+            $padreID = (int) $m->padreid;
+            if ($padreID != $padreAnt) {
+                $k = 0;
+            }
+
+            foreach (Config::get('menu::campos') as $key => $val) {
+                $this->matriz[$padreID][$k][$key] = $m->$val;
+            }
+
+            $k++;
+            $padreAnt = $padreID;
+        }
+
+        $this->generarNivel(0, 1);
+
+        return View::make('menu::menutemplate')->with('elMenu', $this->texto)->render();
+
+    }
 }
