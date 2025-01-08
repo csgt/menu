@@ -68,7 +68,7 @@
             </button>
             <a href="{{ URL::route(Config::get('menu::logo.ruta', 'index.index')) }}">
                 <img src="{{ Config::get('menu::logo.imagen', 'images/logo-menu.png') }}"
-                    alt="{{ Config::get('menu::logo.alt', 'Logo') }}" height="30" style="margin-top: 5px;" />
+                    alt="{{ Config::get('menu::logo.alt', 'Logo') }}" height="30" style="margin-top: 10px;" />
             </a>
         </div>
         <div class="navbar-collapse collapse">
