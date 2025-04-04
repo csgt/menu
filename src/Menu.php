@@ -7,12 +7,12 @@ class Menu
 
     public function getMenu($aCollection)
     {
-        $this->level($aCollection, null);
+        $this->level($aCollection, null, 0);
 
         return $this->text;
     }
 
-    private function level($aCollection, $aParent)
+    private function level($aCollection, $aParent, $depth = 0)
     {
         $levels = $aCollection->where('parent_route', $aParent);
         foreach ($levels as $level) {
@@ -25,7 +25,7 @@ class Menu
             $hasChildren = $level['has_children'];
 
             if ($hasChildren) {
-                $this->text .= "<li class=\"nav-item has-treeview\">
+                $this->text .= "<li class=\"nav-item has-treeview\"" . $this->navMargin($depth) . ">
                     <a href=\"#\" class=\"nav-link\">";
 
                 if ($level["icon"] != "") {
@@ -33,7 +33,7 @@ class Menu
                 }
 
                 $this->text .= "
-                        <p>
+                        <p class='ml-2'>
                             " . $title . "
                             <i class=\"nav-arrow fas fa-angle-right right\"></i>
                         </p>
@@ -41,7 +41,7 @@ class Menu
                     <ul class=\"nav nav-treeview\">";
 
             } else {
-                $this->text .= "<li class=\"nav-item\">";
+                $this->text .= "<li class=\"nav-item\"" . $this->navMargin($depth) . ">";
                 if (array_key_exists("params", $level)) {
                     $this->text .= "<a href=\"" . route($level["route"], $level["params"]) . "\" class=\"$class nav-link\">";
                 } else {
@@ -54,8 +54,13 @@ class Menu
                 $this->text .= "</a>";
             }
 
-            $this->level($aCollection, $level["route"]);
+            $this->level($aCollection, $level["route"], $depth + 1);
             $this->text .= ($hasChildren ? "</ul>" : "") . "</li>";
         }
+    }
+
+    private function navMargin($depth)
+    {
+        return " style=\"margin-left: " . ($depth * 15) . "px;\"";
     }
 }
