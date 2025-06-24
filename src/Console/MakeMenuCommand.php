@@ -11,7 +11,7 @@ class MakeMenuCommand extends Command
     protected $description = 'Vista para Menu';
 
     protected $views = [
-        'layout/menu.stub' => 'layouts/menu.blade.php',
+        //'layout/menu.stub' => 'layouts/menu.blade.php',
     ];
 
     public function fire()
