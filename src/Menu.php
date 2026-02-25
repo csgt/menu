@@ -47,11 +47,11 @@ class Menu
                 $this->texto .= "<i class='nav-icon " . $nivel["icono"] . "'></i>";
             }
 
-            $this->texto .= "<p>" . $titulo . "</p>";
+            $this->texto .= "<p>" . $titulo;
             if ($tieneHijos) {
-                $this->texto .= "<p><i class='fas fa-angle-right right'></i></p>";
+                $this->texto .= "<i class='nav-arrow fas fa-angle-right right'></i>";
             }
-            $this->texto .= "</a>" . ($tieneHijos ? "<ul class='nav nav-treeview'>" : "");
+            $this->texto .= "</p></a>" . ($tieneHijos ? "<ul class='nav nav-treeview'>" : "");
 
             $this->generarNivel($aCollection, $nivel["menuid"]);
             $this->texto .= ($tieneHijos ? "</ul>" : "") . "</li>";
