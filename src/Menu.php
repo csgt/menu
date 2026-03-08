@@ -16,16 +16,11 @@ class Menu
     {
         $levels = $aCollection->where('parent_route', $aParent);
         foreach ($levels as $level) {
-            $title = __($level["name"]);
-            $class = '';
-            if ($level["route"] != '') {
-                $class = ((session()->get('menu-selected') == $level["route"]) ? 'active' : '');
-            }
-            //$hasChildren = $aCollection->where('parent_route', $level["route"])->count() > 0;
+            $title       = __($level["name"]);
             $hasChildren = $level['has_children'];
 
             if ($hasChildren) {
-                $this->text .= "<li class=\"nav-item has-treeview\"" . $this->navMargin($depth) . ">
+                $this->text .= "<li class=\"nav-item has-treeview\">
                     <a href=\"#\" class=\"nav-link\">";
 
                 if ($level["icon"] != "") {
@@ -33,20 +28,16 @@ class Menu
                 }
 
                 $this->text .= "
-                        <p class='ml-2'>
+                        <p>
                             " . $title . "
-                            <i class=\"nav-arrow fas fa-angle-right right\"></i>
+                            <i class=\"nav-arrow bi bi-chevron-right\"></i>
                         </p>
                     </a>
                     <ul class=\"nav nav-treeview\">";
 
             } else {
                 $this->text .= "<li class=\"nav-item\"" . $this->navMargin($depth) . ">";
-                if (array_key_exists("params", $level)) {
-                    $this->text .= "<a href=\"" . route($level["route"], $level["params"]) . "\" class=\"$class nav-link\">";
-                } else {
-                    $this->text .= "<a href=\"" . route($level["route"]) . "\" class=\"$class nav-link\">";
-                }
+                $this->text .= '<a href="' . route($level['route'], $level['params'] ?? []) . "\" class=\"nav-link\">";
                 if ($level["icon"] != "") {
                     $this->text .= "<i class=\"nav-icon " . $level["icon"] . "\"></i>";
                 }

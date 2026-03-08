@@ -8,3 +8,4 @@ This package is used to generate Bootstrap/AdminLTE menu structure based on the 
 | 5.8.x           | 3.4              | 4                 | ids            |
 | 5.9.x           | 4.0-alpha        | 4                 | ids            |
 | ^7.0            | 3.4 , 4.0-alpha  | 4, 5              | names          |
+| ^8.0            | 4.0.0-rc4        | 5                 | names          |
